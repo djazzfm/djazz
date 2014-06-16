@@ -9,6 +9,9 @@ class FormatterBase(object):
     
     def process(self, text, **kwargs):
         return text
+    
+    def __str__(self):
+        return "%s.%s" % (self.__module__, self.__class__.__name__)
 
 
 def get_formatter(name):
@@ -19,4 +22,3 @@ def get_formatter(name):
         return formatter
     except:
         raise FormatterUnavailable(self.formatter)
-
