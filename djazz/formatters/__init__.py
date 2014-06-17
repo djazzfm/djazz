@@ -14,11 +14,15 @@ class FormatterBase(object):
         return "%s.%s" % (self.__module__, self.__class__.__name__)
 
 
-def get_formatter(name):
+def get_formatter(path):
     from importlib import import_module
     try:
-        mod = import_module(self.formatter)
-        formatter = mod.Formatter
+        splitted = path.split('.')
+        module_path = ".".join(splitted[:-1])
+        formatter_name = splitted[-1]
+
+        mod = import_module(module_path)
+        formatter = getattr(mod, formatter_name)
         return formatter
     except:
-        raise FormatterUnavailable(self.formatter)
+        raise FormatterUnavailable(path)
